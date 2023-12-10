@@ -1,3 +1,5 @@
+import Header from "@/components/Header"
+import { ThemeProvider } from "@/components/ThemeProvider"
 import type { Metadata } from "next"
 import "./globals.css"
 
@@ -13,7 +15,17 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Header />
+          <main>{children}</main>
+        </ThemeProvider>
+      </body>
     </html>
   )
 }
