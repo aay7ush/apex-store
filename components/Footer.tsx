@@ -7,7 +7,7 @@ const Footer = () => {
   return (
     <footer>
       <Wrapper className="flex justify-between items-center border-t py-5">
-        <p className="font-medium text-lg">
+        <p className="text-lg">
           &copy; Copyright {new Date().getFullYear()}. All Rights Reserved.
         </p>
 
