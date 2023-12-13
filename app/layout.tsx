@@ -1,6 +1,6 @@
 import Footer from "@/components/Footer"
 import Header from "@/components/Header"
-import { ThemeProvider } from "@/components/ThemeProvider"
+import ThemeProvider from "@/components/ThemeProvider"
 import type { Metadata } from "next"
 import "./globals.css"
 
@@ -24,7 +24,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Header />
-          <main>{children}</main>
+          <main className="min-h-[calc(100vh-60px)]">{children}</main>
           <Footer />
         </ThemeProvider>
       </body>
