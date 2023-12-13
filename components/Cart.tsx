@@ -9,11 +9,7 @@ const Cart = () => {
 
   return (
     <div className="relative">
-      <Button
-        size={"icon"}
-        // variant={"outline"}
-        onClick={() => router.push("/cart")}
-      >
+      <Button size={"icon"} onClick={() => router.push("/cart")}>
         <ShoppingCart />
       </Button>
 
