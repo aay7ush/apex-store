@@ -7,7 +7,7 @@ import { Button } from "./ui/button"
 
 const Header = () => {
   return (
-    <header className="shadow">
+    <header className="shadow border-b py-2">
       <Wrapper className="flex justify-between items-center">
         <Link href="/">
           <h1 className="text-2xl font-bold">ApexStore</h1>
