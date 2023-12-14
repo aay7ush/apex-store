@@ -1,5 +1,7 @@
 "use client"
 
+import { setCategory, setOther } from "@/redux/features/filtersSlice"
+import { useDispatch } from "react-redux"
 import {
   Select,
   SelectContent,
@@ -9,9 +11,11 @@ import {
 } from "./ui/select"
 
 const Filters = () => {
+  const dispatch = useDispatch()
+
   return (
     <section className="flex gap-3">
-      <Select onValueChange={() => {}}>
+      <Select onValueChange={(value) => dispatch(setCategory(value))}>
         <SelectTrigger className="w-[160px]">
           <SelectValue placeholder="Sort by Category" />
         </SelectTrigger>
@@ -25,7 +29,7 @@ const Filters = () => {
         </SelectContent>
       </Select>
 
-      <Select onValueChange={() => {}}>
+      <Select onValueChange={(value) => dispatch(setOther(value))}>
         <SelectTrigger className="w-[160px]">
           <SelectValue placeholder="Sort by" />
         </SelectTrigger>
