@@ -65,7 +65,7 @@ const ProductCard: React.FC<{ product: ProductProps }> = ({ product }) => {
           {description}
         </CardDescription>
 
-        <p className="text-2xl font-bold">$ {price}</p>
+        <p className="text-2xl font-bold">$ {price.toFixed(2)}</p>
       </CardContent>
       <CardFooter>
         <Button className="flex gap-3 w-full" onClick={addToCart}>
