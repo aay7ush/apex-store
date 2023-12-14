@@ -2,6 +2,7 @@ import Footer from "@/components/Footer"
 import Header from "@/components/Header"
 import ThemeProvider from "@/components/ThemeProvider"
 import Wrapper from "@/components/Wrapper"
+import { Toaster } from "@/components/ui/toaster"
 import { ClerkProvider } from "@clerk/nextjs"
 import type { Metadata } from "next"
 import "./globals.css"
@@ -30,6 +31,7 @@ export default function RootLayout({
             <main className="min-h-[calc(100vh-60px)] grid place-content-center">
               <Wrapper className="py-10">{children}</Wrapper>
             </main>
+            <Toaster />
             <Footer />
           </ThemeProvider>
         </body>
