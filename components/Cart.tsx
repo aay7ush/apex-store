@@ -1,22 +1,44 @@
 "use client"
 
-import { ShoppingCart } from "lucide-react"
-import { useRouter } from "next/navigation"
+import { selectTotalItems } from "@/redux/features/cartSlice"
+import { RootState } from "@/redux/rootReducer"
+import { useSelector } from "react-redux"
+import CartProduct from "./CartProduct"
 import { Button } from "./ui/button"
 
 const Cart = () => {
-  const router = useRouter()
+  const products = useSelector((state: RootState) => state.cart.products)
+  const totalItems = useSelector(selectTotalItems)
+
+  const price = products.reduce(
+    (accu: number, item: ProductProps) => accu + item.totalPrice,
+    0
+  )
 
   return (
-    <div className="relative">
-      <Button size={"icon"} onClick={() => router.push("/cart")}>
-        <ShoppingCart />
-      </Button>
+    <>
+      <h2 className="text-4xl border-b pb-5">
+        {totalItems > 0 ? "Your Shopping Cart" : "Your Cart is Empty!"}
+      </h2>
 
-      <p className="bg-secondary text-primary font-medium w-5 h-5 rounded-full grid place-content-center absolute -right-2 -top-2">
-        0
-      </p>
-    </div>
+      {totalItems > 0 && (
+        <>
+          <div className="space-y-16 py-10">
+            {products.map((product: ProductProps) => (
+              <CartProduct key={product.id} product={product} />
+            ))}
+          </div>
+          <div className="flex flex-col lg:flex-row gap-4 text-center justify-between pt-5">
+            <h4 className="text-3xl">
+              Subtotal ({totalItems} items):{" "}
+              <span className="font-medium">$ {price.toFixed(2)}</span>
+            </h4>
+            <Button>Proceed to Checkout</Button>
+          </div>
+        </>
+      )}
+    </>
   )
 }
+
 export default Cart

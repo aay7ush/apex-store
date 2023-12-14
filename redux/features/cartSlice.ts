@@ -51,12 +51,12 @@ export const cartSlice = createSlice({
   },
 })
 
-export const { addProduct, removeProduct, updateProduct } = cartSlice.actions
-
 export const selectTotalItems = (state: RootState) =>
   state.cart.products.reduce(
     (accu: number, item: ProductProps) => accu + item.quantity,
     0
   )
+
+export const { addProduct, removeProduct, updateProduct } = cartSlice.actions
 
 export default cartSlice.reducer

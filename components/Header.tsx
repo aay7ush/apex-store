@@ -1,6 +1,6 @@
 import { SignInButton, SignedOut, UserButton } from "@clerk/nextjs"
 import Link from "next/link"
-import Cart from "./Cart"
+import CartButton from "./CartButton"
 import ThemeToggle from "./ThemeToggle"
 import Wrapper from "./Wrapper"
 import { Button } from "./ui/button"
@@ -15,15 +15,13 @@ const Header = () => {
 
         <div className="flex gap-3 items-center">
           <ThemeToggle />
-          <Button size={"icon"}>
-            <UserButton afterSignOutUrl="/" />
-          </Button>
+          <UserButton afterSignOutUrl="/" />
           <SignedOut>
             <Button className="mr-2">
               <SignInButton mode="modal" />
             </Button>
           </SignedOut>
-          <Cart />
+          <CartButton />
         </div>
       </Wrapper>
     </header>

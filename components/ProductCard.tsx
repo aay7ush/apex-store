@@ -1,9 +1,11 @@
 "use client"
 
 import { useToast } from "@/components/ui/use-toast"
+import { addProduct } from "@/redux/features/cartSlice"
 import { ShoppingCart, Star } from "lucide-react"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
+import { useDispatch } from "react-redux"
 import { Badge } from "./ui/badge"
 import { Button } from "./ui/button"
 import {
@@ -19,11 +21,14 @@ const ProductCard: React.FC<{ product: ProductProps }> = ({ product }) => {
   const { id, category, description, image, price, rating, title } = product
   const { toast } = useToast()
   const router = useRouter()
+  const dispatch = useDispatch()
 
   const addToCart = () => {
     toast({
       description: "Item added to cart.",
     })
+
+    dispatch(addProduct({ ...product, quantity: 1, totalPrice: price }))
   }
 
   return (
