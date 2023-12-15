@@ -1,7 +1,7 @@
 import { RootState } from "@/redux/rootReducer"
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 
-interface initialStateProps {
+type initialStateProps = {
   products: ProductProps[]
 }
 
