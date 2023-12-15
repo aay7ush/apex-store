@@ -8,7 +8,7 @@ Welcome to our E-Commerce App! This application is built with Next.js, TypeScrip
 
 ## Live Site
 
-Check out the live site [here](https://apex-store.vercel.app/).
+Check out the live site [here](https://apex-st0re.vercel.app/).
 
 ## Features
 
