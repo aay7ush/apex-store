@@ -2,6 +2,7 @@
 
 import { selectTotalItems } from "@/redux/features/cartSlice"
 import { RootState } from "@/redux/rootReducer"
+import { loadStripe } from "@stripe/stripe-js"
 import { useSelector } from "react-redux"
 import CartProduct from "./CartProduct"
 import { Button } from "./ui/button"
@@ -14,6 +15,31 @@ const Cart = () => {
     (accu: number, item: ProductProps) => accu + item.totalPrice,
     0
   )
+
+  const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
+  const stripePromise = loadStripe(publishableKey)
+
+  const onCheckout = async () => {
+    const stripe = await stripePromise
+
+    const response = await fetch("/api/checkout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        products,
+      }),
+    })
+
+    const checkoutSession = await response.json()
+
+    const result = await stripe?.redirectToCheckout({
+      sessionId: checkoutSession.id,
+    })
+
+    result?.error && alert(result.error.message)
+  }
 
   return (
     <>
@@ -33,7 +59,7 @@ const Cart = () => {
               Subtotal ({totalItems} items):{" "}
               <span className="font-medium">$ {price.toFixed(2)}</span>
             </h4>
-            <Button>Proceed to Checkout</Button>
+            <Button onClick={onCheckout}>Proceed to Checkout</Button>
           </div>
         </>
       )}
