@@ -2,12 +2,14 @@
 
 import { selectTotalItems } from "@/redux/features/cartSlice"
 import { RootState } from "@/redux/rootReducer"
+import { useSession } from "@clerk/nextjs"
 import { loadStripe } from "@stripe/stripe-js"
 import { useSelector } from "react-redux"
 import CartProduct from "./CartProduct"
 import { Button } from "./ui/button"
 
 const Cart = () => {
+  const { isSignedIn } = useSession()
   const products = useSelector((state: RootState) => state.cart.products)
   const totalItems = useSelector(selectTotalItems)
 
@@ -34,11 +36,12 @@ const Cart = () => {
 
     const checkoutSession = await response.json()
 
-    const result = await stripe?.redirectToCheckout({
-      sessionId: checkoutSession.id,
-    })
-
-    result?.error && alert(result.error.message)
+    if (checkoutSession) {
+      const result = await stripe?.redirectToCheckout({
+        sessionId: checkoutSession.id,
+      })
+      result?.error && alert(result.error.message)
+    }
   }
 
   return (
@@ -59,7 +62,11 @@ const Cart = () => {
               Subtotal ({totalItems} items):{" "}
               <span className="font-medium">$ {price.toFixed(2)}</span>
             </h4>
-            <Button onClick={onCheckout}>Proceed to Checkout</Button>
+            {isSignedIn ? (
+              <Button onClick={onCheckout}>Proceed to Checkout</Button>
+            ) : (
+              <Button disabled>Sign In to Checkout</Button>
+            )}
           </div>
         </>
       )}
