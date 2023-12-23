@@ -34,6 +34,9 @@ export async function POST(req: Request) {
     mode: "payment",
     success_url: redirectURL + "?status=success",
     cancel_url: redirectURL + "?status=cancel",
+    shipping_address_collection: {
+      allowed_countries: ["US"],
+    },
   })
 
   return NextResponse.json({ id: session.id })
